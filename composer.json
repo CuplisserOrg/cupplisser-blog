@@ -1,0 +1,19 @@
+{
+    "name": "cupplisser/blog",
+    "description": "Simple Blog Cupplisser",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muhamad Anjar",
+            "email": "arvanria@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Cupplisser\\Blog\\": "src/"
+        }
+    },
+    "require": {}
+}
