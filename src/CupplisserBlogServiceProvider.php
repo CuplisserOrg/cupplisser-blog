@@ -11,11 +11,11 @@ class CupplisserBlogServiceProvider extends ServiceProvider
     public function register()
     {
         if ($this->app['config']->get('cupplisser-blog') === null) {
-            $this->app['config']->set('cupplisser-blog', require __DIR__.'/../config/cupplisser-blog.php');
+            $this->app['config']->set('cupplisser-blog', require __DIR__.'/../config/config.php');
         }
         // Merge config
         $this->mergeConfigFrom(
-            __DIR__.'/../config/cupplisser-blog.php',
+            __DIR__.'/../config/config.php',
             'permission'
         );
 
@@ -31,17 +31,17 @@ class CupplisserBlogServiceProvider extends ServiceProvider
 
         // Publish config files
         $this->publishes([
-            __DIR__.'/../config/blog.php' => config_path('cblog.php'),
-        ], 'config');
+            __DIR__.'/../config/config.php' => config_path('cblog.php'),
+        ], 'cblog-config');
         
         // Publish config migration files
         $this->publishes([
-            __DIR__.'/../database/migrations' => app_path('database/migrations'),
-        ], 'migrations');
+            __DIR__.'/../database/migrations' => base_path('database/migrations'),
+        ], 'cblog-migrations');
         
         // Publish Static Files
         $this->publishes([
             __DIR__.'/../public' => public_path(),
-        ], 'public');
+        ], 'cblog-public');
     }
 }
