@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BlogPosts extends Model{
+class CPosts extends Model{
     use SoftDeletes;
 
     const STATUS_DRAFT = "D";
@@ -21,13 +21,13 @@ class BlogPosts extends Model{
 
     public function categories()
     {
-        return $this->belongsToMany(BlogCategory::class, "blog_post_categories",
+        return $this->belongsToMany(CCategory::class, "blog_post_categories",
             "blog_post_id", "blog_category_id");
     }
 
     public function tags()
     {
-        return $this->belongsToMany(BlogTag::class, "blog_post_tags",
+        return $this->belongsToMany(CTag::class, "blog_post_tags",
             "blog_post_id", "blog_tag_id");
     }
 
@@ -38,13 +38,13 @@ class BlogPosts extends Model{
 
     public function featuredImage()
     {
-        return $this->belongsTo(BlogImage::class, "blog_image_id");
+        return $this->belongsTo(CImage::class, "blog_image_id");
     }
 
     public function syncTags($tags)
     {
         // Create tags if needs be
-        $ids = BlogTag::createMany($tags);
+        $ids = CTag::createMany($tags);
 
         // Sync relations
         $this->tags()->sync($ids);
@@ -52,13 +52,13 @@ class BlogPosts extends Model{
 
     public function availableCategories()
     {
-        return BlogCategory::whereNotIn(
+        return CCategory::whereNotIn(
             "blog_categories.id",
             $this->categories()->pluck("blog_categories.id")->toArray()
         )->get();
     }
 
-    public function hasCategory(BlogCategory $category)
+    public function hasCategory(CCategory $category)
     {
         return in_array($category->id, $this->categories()->pluck("blog_categories.id")->toArray());
     }

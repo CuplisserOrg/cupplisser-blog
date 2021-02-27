@@ -1,5 +1,15 @@
 <?php
 
+function getBlogSiteID()
+{
+    $siteClass = config("cupplisser-blog.site_model");
+    $siteClassInstance = $siteClass
+        ? new $siteClass()
+        : null;
+
+    return $siteClassInstance ? $siteClassInstance::getSiteId() : null;
+}
+
 function blogUrl($url, $frontend = false)
 {
     if ($frontend === true)

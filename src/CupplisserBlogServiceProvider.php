@@ -18,6 +18,10 @@ class CupplisserBlogServiceProvider extends ServiceProvider
             __DIR__.'/../config/cupplisser-blog.php',
             'permission'
         );
+
+        $this->app->bind('cupplisser-blog', function() {
+            return new Models\CHelper;
+        });
     }
 
     public function boot()
@@ -27,17 +31,17 @@ class CupplisserBlogServiceProvider extends ServiceProvider
 
         // Publish config files
         $this->publishes([
-            __DIR__.'/../config/blog.php' => config_path('blog.php'),
-        ], 'blog/config');
+            __DIR__.'/../config/blog.php' => config_path('cblog.php'),
+        ], 'config');
         
         // Publish config migration files
         $this->publishes([
             __DIR__.'/../database/migrations' => app_path('database/migrations'),
-        ], 'laravel-blog/migrations');
+        ], 'migrations');
         
         // Publish Static Files
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/lnch/laravel-blog'),
-        ], 'laravel-blog/public');
+            __DIR__.'/../public' => public_path(),
+        ], 'public');
     }
 }

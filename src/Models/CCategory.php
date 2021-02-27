@@ -5,7 +5,7 @@ namespace Cupplisser\Blog\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class BlogCategory extends Model
+class CCategory extends Model
 {
     use SoftDeletes;
 
