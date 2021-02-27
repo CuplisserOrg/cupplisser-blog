@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 class BlogCtrl extends Controller{
     public function index(){
-        # code...
+        return 
     }
 
     public function show($slug)
