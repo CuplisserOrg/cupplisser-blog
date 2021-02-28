@@ -11,6 +11,7 @@ class Controller extends BaseController{
         // if ($this->viewPath) {
         //     $this->viewPath .= ".";
         // }
+        
 
         $this->routePrefix = config("cblog.route_prefix");
         if ($this->routePrefix && substr($this->routePrefix, -1) !== "/") {
