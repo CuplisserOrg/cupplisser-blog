@@ -10,6 +10,10 @@ class CPosts extends Model{
     const STATUS_DRAFT = "D";
     const STATUS_ACTIVE = "A";
 
+    const FORMAT_STANDARD = "S";
+    const FORMAT_VIDEO = "V";
+
+
     protected $fillable = ['author_id','title','slug','content','status','is_approved','approved_by','comments_enabled','published_at','is_featured'];
 
     public $dates = [

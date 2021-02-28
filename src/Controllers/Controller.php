@@ -7,12 +7,12 @@ class Controller extends BaseController{
     protected $routePrefix;
     public function __construct()
     {
-        $this->viewPath = config("blog.views_path");
+        $this->viewPath = config("cblog.views_path");
         if ($this->viewPath) {
             $this->viewPath .= ".";
         }
 
-        $this->routePrefix = config("blog.route_prefix");
+        $this->routePrefix = config("cblog.route_prefix");
         if ($this->routePrefix && substr($this->routePrefix, -1) !== "/") {
             $this->routePrefix .= "/";
         }

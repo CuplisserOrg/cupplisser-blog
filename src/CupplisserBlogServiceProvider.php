@@ -22,6 +22,8 @@ class CupplisserBlogServiceProvider extends ServiceProvider
         $this->app->bind('cupplisser-blog', function() {
             return new Models\CHelper;
         });
+
+        include __DIR__.'/Routes/web.php';
     }
 
     public function boot()
