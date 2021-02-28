@@ -25,11 +25,11 @@ function blogUrl($url, $frontend = false)
 {
     if ($frontend === true)
     {
-        $routePrefix = config("blog.frontend_route_prefix", "");
+        $routePrefix = config("cblog.frontend_route_prefix", "");
     }
     else
     {
-        $routePrefix = config("blog.route_prefix", "");
+        $routePrefix = config("cblog.route_prefix", "");
     }
 
     if ($routePrefix && substr($routePrefix, -1) !== "/") {

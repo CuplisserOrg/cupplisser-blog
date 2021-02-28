@@ -13,6 +13,10 @@ class CTag extends Model
         'site_id',
         'name'
     ];
+    public function __construct()
+    {
+        $this->table = config('cblog.table.tags'); 
+    }
 
     /**
      * Related post records

@@ -45,6 +45,11 @@ class CComment extends Model
         'deleted_at',
     ];
 
+    public function __construct()
+    {
+        $this->table = config('cblog.table.comments'); 
+    }
+
     public function post()
     {
         return $this->belongsTo(BlogPost::class, "post_id");

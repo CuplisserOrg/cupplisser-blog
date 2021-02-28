@@ -8,9 +8,9 @@ class Controller extends BaseController{
     public function __construct()
     {
         $this->viewPath = config("cblog.views_path");
-        if ($this->viewPath) {
-            $this->viewPath .= ".";
-        }
+        // if ($this->viewPath) {
+        //     $this->viewPath .= ".";
+        // }
 
         $this->routePrefix = config("cblog.route_prefix");
         if ($this->routePrefix && substr($this->routePrefix, -1) !== "/") {

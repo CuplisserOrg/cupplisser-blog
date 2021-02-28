@@ -23,6 +23,11 @@ class CPosts extends Model{
         'deleted_at',
     ];
 
+    public function __construct()
+    {
+        $this->table = config('cblog.table.posts'); 
+    }
+
     public function categories()
     {
         return $this->belongsToMany(CCategory::class, "blog_post_categories",

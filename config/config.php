@@ -12,4 +12,14 @@ return [
         'file_browser_url'  => 'images?laravel-blog-embed=true',
         'image_upload_url'  => 'images/dialog-upload',
     ],
+    'table'=>[
+        'posts'=> 'blog_posts',
+        'categories'=> 'blog_categories',
+        'tags'=> 'blog_tags',
+        'comments'=> 'blog_comments'
+    ],
+    'posts' =>[
+        'per_page' => 10,
+    ],
+    'views_path'=> 'admin_blog::'
 ];

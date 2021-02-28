@@ -13,7 +13,20 @@
     "autoload": {
         "psr-4": {
             "Cupplisser\\Blog\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
-    "require": {}
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Cupplisser\\Blog\\CupplisserBlogServiceProvider"
+            ],
+			"aliases": {
+				"CupplisserBlog": "Cupplisser\\Blog\\CupplisserBlogFacade"
+			}
+        }
+    }
 }
