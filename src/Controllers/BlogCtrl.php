@@ -1,11 +1,14 @@
 <?php
 
 namespace Cupplisser\Blog\Controllers;
+
+use Cupplisser\Blog\Models\CComment;
+use Cupplisser\Blog\Models\CPosts;
 use Illuminate\Http\Request;
 
 class BlogCtrl extends Controller{
     public function index(){
-        return 
+        return view('admin_blog:index');
     }
 
     public function show($slug)
@@ -13,7 +16,7 @@ class BlogCtrl extends Controller{
         # code...
     }
 
-    public function postComment(BlogPost $post, Request $request)
+    public function postComment(CPosts $post, Request $request)
     {
         $this->validate($request, [
             'name' => 'sometimes|string|max:200',
@@ -28,8 +31,8 @@ class BlogCtrl extends Controller{
             'parent_id' => $request->parent_id,
             'user_id' => auth()->id(),
             'body' => $request->comment,
-            'status' => config("laravel-blog.comments.requires_approval")
-                ? Comment::STATUS_PENDING_APPROVAL : Comment::STATUS_APPROVED,
+            'status' => config("cblog.comments.requires_approval")
+                ? CComment::STATUS_PENDING_APPROVAL : CComment::STATUS_APPROVED,
         ]);
 
         return redirect(blogUrl("$post->id/$post->slug" . "#post-comments", true));

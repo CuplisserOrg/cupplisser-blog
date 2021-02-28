@@ -20,6 +20,8 @@ class CreateBlog extends Migration
         // $this->create_comment();
         $this->create_image();
         $this->create_comments();
+        $this->create_likes();
+        $this->create_newletter();
     }
 
     /**
@@ -29,6 +31,8 @@ class CreateBlog extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists("newsletter_subscriptions");
+        Schema::dropIfExists("blog_likes");
         Schema::dropIfExists("blog_comments");
         Schema::dropIfExists("blog_post_images");
         Schema::dropIfExists("blog_post_comments");
@@ -212,6 +216,27 @@ class CreateBlog extends Migration
 
             $table->foreign("parent_id")->references("id")->on("blog_comments")
                 ->onUpdate("cascade")->onDelete("set null");
+        });
+    }
+
+    public function create_likes(){
+       Schema::create('blog_likes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('author_id')->unsigned();
+            $table->foreign('author_id')->references('id')->on('users');
+
+            $table->nullableMorphs('likeable');
+
+            $table->timestamps();
+        });
+    }
+
+    public function create_newletter()
+    {
+        Schema::create('newsletter_subscriptions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('email')->unique();
+            $table->timestamps();
         });
     }
 }
