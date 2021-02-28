@@ -1,32 +1,32 @@
 {
-    "name": "cupplisser/blog",
-    "description": "Simple Blog Cupplisser",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Muhamad Anjar",
-            "email": "arvanria@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "Cupplisser\\Blog\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
-    "require": {},
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Cupplisser\\Blog\\CupplisserBlogServiceProvider"
-            ],
-			"aliases": {
-				"CupplisserBlog": "Cupplisser\\Blog\\CupplisserBlogFacade"
-			}
-        }
+  "name": "cupplisser/blog",
+  "description": "Simple Blog Cupplisser",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Muhamad Anjar",
+      "email": "arvanria@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Cupplisser\\Blog\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "require": {},
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Cupplisser\\Blog\\CupplisserBlogServiceProvider"
+      ],
+      "aliases": {
+        "CupplisserBlog": "Cupplisser\\Blog\\CupplisserBlogFacade"
+      }
+    }
+  }
 }
