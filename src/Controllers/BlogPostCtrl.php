@@ -13,7 +13,7 @@ class BlogPostCtrl extends Controller{
 
         $posts = $posts->paginate(config("cblog.posts.per_page"));
         $context = array('posts'=> $posts);
-        
+
         return view($this->viewPath."posts.index", $context);
     }
 

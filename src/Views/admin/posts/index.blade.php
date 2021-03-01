@@ -8,7 +8,7 @@
         <h3>{{ config("cblog.taxonomy", "Blog") }} Posts</h3>
     </div> <!-- End .col-sm-6 -->
     <div class="col-sm-6 text-right" style="padding-top: 1.5rem;">
-        <a href="{{ blogUrl("posts/create") }}" class="btn btn-primary">New Post</a>
+        <a href="{{ url("posts/create") }}" class="btn btn-primary">New Post</a>
     </div>
 
     <div class="col-sm-12">
@@ -38,7 +38,7 @@
                     <tr>
                         <td>
                             @can("edit", $post)
-                                <a href="{{ blogUrl("posts/$post->id/edit") }}">
+                                <a href="{{ url("posts/$post->id/edit") }}">
                                     {{ $post->title }}
                                 </a>
                             @else
@@ -68,11 +68,11 @@
                         </td>
                         <td>
                             @can("edit", $post)
-                                <a href="{{ blogUrl("posts/$post->id/edit") }}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ url("posts/$post->id/edit") }}" class="btn btn-sm btn-primary">Edit</a>
                             @endcan
 
                             @can("delete", $post)
-                                <form action="{{ blogUrl("posts/$post->id") }}" method="post" class="form-inline confirm-delete">
+                                <form action="{{ url("posts/$post->id") }}" method="post" class="form-inline confirm-delete">
                                     {{ csrf_field() }} {{ method_field("DELETE") }}
                                     <button class="btn btn-sm btn-danger">Delete</button>
                                 </form>
