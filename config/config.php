@@ -21,5 +21,5 @@ return [
     'posts' =>[
         'per_page' => 10,
     ],
-    'views_path'=> 'admin_blog::'
+    'views_path'=> 'admin-blog::'
 ];

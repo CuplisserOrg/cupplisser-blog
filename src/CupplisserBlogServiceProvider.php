@@ -29,7 +29,7 @@ class CupplisserBlogServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/Views', 'main-blog');
-        $this->loadViewsFrom(__DIR__ . "/Views/admin", "admin_blog");
+        $this->loadViewsFrom(__DIR__ . "/Views/admin", "admin-blog");
 
         // Publish config files
         $this->publishes([

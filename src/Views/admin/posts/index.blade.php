@@ -1,10 +1,11 @@
-@extends('base')
+@extends('admin-blog::layout')
 
-@section('content-admin')
+@section('content')
+@parent
 <div class="row">
 
     <div class="col-sm-6">
-        <h3>{{ config("laravel-blog.taxonomy", "Blog") }} Posts</h3>
+        <h3>{{ config("cblog.taxonomy", "Blog") }} Posts</h3>
     </div> <!-- End .col-sm-6 -->
     <div class="col-sm-6 text-right" style="padding-top: 1.5rem;">
         <a href="{{ blogUrl("posts/create") }}" class="btn btn-primary">New Post</a>
@@ -19,15 +20,15 @@
                         <th style="width: 30%;">Title</th>
                         <th>Author</th>
                         <th>Status</th>
-                        @if(config("laravel-blog.categories.enabled"))
+                        @if(config("cblog.categories.enabled"))
                             <th>Categories</th>
                         @endif
-                        @if(config("laravel-blog.tags.enabled"))
+                        @if(config("cblog.tags.enabled"))
                             <th>Tags</th>
                         @endif
-                        {{--@if(config("laravel-blog.categories.enabled"))--}}
-                            {{--<th>Comments</th>--}}
-                        {{--@endif--}}
+                        @if(config("cblog.categories.enabled"))--}}
+                            <th>Comments</th>
+                        @endif
                         <th>Published</th>
                         <th style="width: 12.5%;">Actions</th>
                     </tr>
@@ -52,12 +53,12 @@
                         </td>
                         <td>
                         </td>
-                        @if(config("laravel-blog.categories.enabled"))
+                        @if(config("cblog.categories.enabled"))
                             <td style="font-style: italic; color: grey;">
                                 {{ implode(", ", $post->categories()->pluck("name")->toArray()) }}
                             </td>
                         @endif
-                        @if(config("laravel-blog.tags.enabled"))
+                        @if(config("cblog.tags.enabled"))
                             <td style="font-style: italic; color: grey;">
                                 {{ implode(", ", $post->tags()->pluck("name")->toArray()) }}
                             </td>
