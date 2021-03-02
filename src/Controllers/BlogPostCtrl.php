@@ -8,13 +8,10 @@ use Illuminate\Http\RedirectResponse;
 class BlogPostCtrl extends Controller{
     public function index()
     {
-        $posts = CPosts::orderBy("is_featured", "desc")
-            ->orderBy("published_at", "desc");
-
-        $posts = $posts->paginate(config("cblog.posts.per_page"));
-        $context = array('posts'=> $posts);
-
-        return view($this->viewPath."posts.index", $context);
+        $posts = CPosts::get();
+        return view($this->viewPath."posts.index");
+          
+          //->with(['posts'=>$posts]);
     }
 
     public function store(BlogPostRequest $request)

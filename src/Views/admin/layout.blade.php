@@ -1,4 +1,4 @@
-@extends('admin-blog::layout')
+@extends('main-blog::base')
 
 @section('style-head')
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -79,4 +79,6 @@
         </div>
     </header>
 </div>
+
+@yield('content-admin')
 @endsection

@@ -28,16 +28,6 @@
         
         <!-- END STYLESHEETS -->
         <!-- Scripts -->
-        <script>
-            window.Main = @php echo json_encode([
-                'csrfToken' => csrf_token(),
-                'apiUrl' => url('/api'),
-                'serverUrl' => url('/'),
-                'geoserverUrl' => config('app.geoserver_url')
-            ]);
-            @endphp
-            
-        </script>
     </head>
     <!--/ END Head -->
 
@@ -52,5 +42,4 @@
         
     </body>
     <!--/ END Body -->
-</html>
-@
+    </html>
