@@ -27,6 +27,6 @@ class CCategory extends Model
      */
     public function getUrlAttribute()
     {
-        return url("blog/category/{$this->id}-") . strtolower(str_replace(" ", "-", $this->name));
+        return blogUrl("blog/category/{$this->id}-") . strtolower(str_replace(" ", "-", $this->name));
     }
 }

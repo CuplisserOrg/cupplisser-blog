@@ -15,7 +15,7 @@ class CTag extends Model
     ];
     public function __construct()
     {
-        $this->table = config('cblog.table.tags'); 
+        $this->table = config('cblog.table.tags');
     }
 
     /**
@@ -71,6 +71,6 @@ class CTag extends Model
     public function getUrlAttribute()
     {
         $name = str_replace(" ", "-", str_replace("#", "", $this->name));
-        return url("blog/tag/{$this->id}-") . strtolower($name);
+        return blogUrl("blog/tag/{$this->id}-") . strtolower($name);
     }
 }

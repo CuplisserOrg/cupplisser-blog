@@ -25,7 +25,7 @@ class CPosts extends Model{
 
     public function __construct()
     {
-        $this->table = config('cblog.table.posts'); 
+        $this->table = config('cblog.table.posts');
     }
 
     public function categories()
@@ -123,7 +123,7 @@ class CPosts extends Model{
 
     public function getAuthorUrlAttribute()
     {
-        return url("blog/author/{$this->author->id}-" . strtolower(str_replace(" ", "-", $this->author->name)));
+        return blogUrl("blog/author/{$this->author->id}-" . strtolower(str_replace(" ", "-", $this->author->name)));
     }
 
     public function getCommentsCountAttribute()
