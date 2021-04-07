@@ -119,19 +119,11 @@ class CreateBlog extends Migration
             $table->softDeletes();
         });
 
-        Schema::create("blog_post_tags", function (Blueprint $table) {
+        Schema::create("blog_taggables", function (Blueprint $table) {
             $table->increments("id");
-            $table->unsignedInteger("blog_post_id");
             $table->unsignedInteger("blog_tag_id");
             $table->morphs('taggables');
 
-            $table->unique(['blog_tag_id', 'blog_post_id']);
-
-            $table->foreign("blog_post_id")
-                ->references("id")
-                ->on("blog_posts")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
 
             $table->foreign("blog_tag_id")
                 ->references("id")

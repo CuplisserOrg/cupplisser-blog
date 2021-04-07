@@ -16,7 +16,7 @@ class CCategory extends Model
 
     public function posts()
     {
-        return $this->belongsToMany(BlogPost::class, "blog_post_categories",
+        return $this->belongsToMany(CPosts::class, "blog_post_categories",
             "blog_category_id", "blog_post_id");
     }
 
