@@ -89,6 +89,7 @@ class CreateBlog extends Migration
 
         Schema::create("blog_post_categories", function (Blueprint $table) {
             $table->increments("id");
+            $table->morphs('categories');
             $table->unsignedInteger("blog_post_id");
             $table->unsignedInteger("blog_category_id");
 
@@ -122,6 +123,7 @@ class CreateBlog extends Migration
             $table->increments("id");
             $table->unsignedInteger("blog_post_id");
             $table->unsignedInteger("blog_tag_id");
+            $table->morphs('taggables');
 
             $table->unique(['blog_tag_id', 'blog_post_id']);
 

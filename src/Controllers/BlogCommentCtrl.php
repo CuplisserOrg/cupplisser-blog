@@ -6,18 +6,4 @@ class BlogCommentCtrl extends Controller{
         # code...
     }
 
-    public function store()
-    {
-        # code...
-    }
-
-    public function update()
-    {
-        # code...
-    }
-
-    public function destroy()
-    {
-        # code...
-    }
 }
