@@ -31,3 +31,23 @@ CKEDITOR.editorConfig = function( config ) {
     // Simplify the dialog windows.
     config.removeDialogTabs = 'image:advanced;link:advanced';
 };
+
+
+let Blog = {
+    loadTags : function (){
+        $.ajax({
+            url: 'blog/get_tags',
+            dataType: 'json'
+        }).done((res) =>{
+            return res;
+        })
+    },
+    loadCategories: function (){
+        $.ajax({
+            url: 'blog/get_categories',
+            dataType: 'json'
+        }).done((res)=>{
+            return res;
+        });
+    }
+}

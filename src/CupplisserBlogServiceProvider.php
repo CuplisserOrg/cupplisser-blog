@@ -35,15 +35,15 @@ class CupplisserBlogServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('cblog.php'),
         ], 'cblog-config');
-        
+
         // Publish config migration files
         $this->publishes([
             __DIR__.'/../database/migrations' => base_path('database/migrations'),
         ], 'cblog-migrations');
-        
+
         // Publish Static Files
         $this->publishes([
-            __DIR__.'/../public' => public_path(),
+            __DIR__.'/../public' => public_path('assets/libs/blog'),
         ], 'cblog-public');
     }
 }

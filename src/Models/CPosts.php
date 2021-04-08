@@ -26,6 +26,7 @@ class CPosts extends Model{
     public function __construct()
     {
         $this->table = config('cblog.table.posts');
+        parent::__construct();
     }
 
     public function categories()

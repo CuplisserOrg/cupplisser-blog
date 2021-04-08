@@ -2,7 +2,7 @@
 
 @section('style-head')
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    
+
 @endsection
 @section('content')
 <div class="flex flex-col flex-1 w-full">
@@ -29,7 +29,7 @@
             </button>
             <div class="flex justify-center flex-1">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-                    <img src="#" alt="Logo" class="d-inline-block align-top" alt="" loading="lazy">
+                    <img src="{{ asset("assets/images/logo.svg") }}" alt="Logo" class="d-inline-block align-top w-10" alt="" loading="lazy">
                 </a>
             </div>
             <ul class="flex items-center flex-shrink-0 space-x-6">

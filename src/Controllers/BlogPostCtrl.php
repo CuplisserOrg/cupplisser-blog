@@ -4,35 +4,37 @@ use Cupplisser\Blog\Models\CPosts;
 use Cupplisser\Blog\Requests\BlogPostRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class BlogPostCtrl extends Controller{
     public function index()
     {
         $posts = CPosts::get();
-        return view($this->viewPath."posts.index");
-          
-          //->with(['posts'=>$posts]);
+        return view($this->viewPath."posts.index")
+          ->with(['posts'=>$posts]);
     }
-
+    public function create(){
+        return view($this->viewPath."posts.create");
+    }
     public function store(BlogPostRequest $request)
     {
         $published_at = $request->published_at
             ? date("Y-m-d H:i:s", strtotime($request->published_at))
             : date("Y-m-d H:i:s", time() - 60);
         $slug = Str::slug($request->title);
-        $post = CPosts::create([
-            'author_id' => auth()->user() ? auth()->user()->id : null,
+        $post = CPosts::insert([
+            'author_id' => auth()->user()->id ?? null,
             'blog_image_id' => $request->blog_image_id,
             'title' => $request->title,
             'slug' =>  $slug,
             'fb_slug' =>  $slug,
-            'content' => $request->post_content,
+            'content' => $request->post('content'),
             'status' => $request->status,
             'format' => CPosts::FORMAT_STANDARD,
             'is_approved' => 1,
             'comments_enabled' => boolval($request->comments_enabled),
             'published_at' => $published_at,
-            'is_featured' => boolval($request->get("is_featured", 0))
+            'is_featured' => boolval($request->post("is_featured", 0))
         ]);
 
         if($request->category) {
@@ -52,7 +54,6 @@ class BlogPostCtrl extends Controller{
 
         return redirect()->route('admin.posts.edit', $post)->withSuccess(__('posts.updated'));
     }
-
     public function destroy(CPosts $post)
     {
         $post->delete();

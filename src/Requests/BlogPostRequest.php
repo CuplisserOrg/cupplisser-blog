@@ -27,10 +27,10 @@ class BlogPostRequest extends FormRequest
         $rules = array_merge($rules, [
             'title'             => 'required|string|max:190',
             'blog_image_id'     => 'nullable|integer',
-            'post_content'      => 'required|max:4294967295',
+            'content'      => 'required|max:4294967295',
             'format'            => 'sometimes',
             'published_at'      => 'nullable|date',
-            'comments_enabled'  => 'required|boolean',
+            'comments_enabled'  => 'boolean',
             'tags'              => 'sometimes|string|nullable',
             'is_featured'       => 'sometimes|boolean',
         ]);
