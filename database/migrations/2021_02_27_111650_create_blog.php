@@ -227,9 +227,19 @@ class CreateBlog extends Migration
 
     public function create_newletter()
     {
-        Schema::create('newsletter_subscriptions', function (Blueprint $table) {
+        Schema::create('blog_newsletter_subscriptions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->unique();
+            $table->timestamps();
+        });
+    }
+
+    public function create_pages(){
+        Schema::create('blog_pages', function (Blueprint $table){
+            $table->uuid('id')->primary();
+            $table->string('title', 200);
+            $table->string('slug', 100);
+            $table->text('content');
             $table->timestamps();
         });
     }
