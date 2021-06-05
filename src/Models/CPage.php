@@ -1,42 +1,36 @@
 <?php namespace Cupplisser\Blog\Models;
 
+use App\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CPosts extends Model{
-    use SoftDeletes;
-
-    const STATUS_DRAFT = "D";
-    const STATUS_ACTIVE = "A";
-
-    const FORMAT_STANDARD = "S";
-    const FORMAT_VIDEO = "V";
-
-
-    protected $fillable = ['author_id','title','slug','content','status','is_approved','approved_by','comments_enabled','published_at','is_featured'];
+class CPage extends Model{
+    // use SoftDeletes;
+    use UsesUuid;
+    protected $fillable = ['title','slug','content'];
 
     public $dates = [
-        'published_at',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     public function __construct($attributes = array())
     {
         parent::__construct($attributes);
-        $this->table = config('cblog.table.posts');
+        $this->table = config('cblog.table.pages');
     }
 
     public function categories()
     {
-        return $this->morphToMany(CCategory::class, "blog_categoryables", "blog_categoryables", "blog_categoryables_id", "category_id");
+        return $this->belongsToMany(CCategory::class, "blog_post_categories",
+            "blog_post_id", "blog_category_id");
     }
 
     public function tags()
     {
-        return $this->morphToMany(CTag::class, "blog_taggables", "blog_taggables", "blog_taggables_id", "blog_tag_id");
+        return $this->belongsToMany(CTag::class, "blog_post_tags",
+            "blog_post_id", "blog_tag_id");
     }
 
     public function author()
@@ -46,12 +40,7 @@ class CPosts extends Model{
 
     public function featuredImage()
     {
-        return $this->morphOne(CImage::class, "imageable");
-    }
-
-    public function comments()
-    {
-        return $this->morphMany(CComment::class, "commentable");
+        return $this->belongsTo(CImage::class, "blog_image_id");
     }
 
     public function syncTags($tags)

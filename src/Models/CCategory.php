@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CCategory extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
     protected $table = 'blog_categories';
     protected $fillable = [
         'name',
@@ -16,8 +16,7 @@ class CCategory extends Model
 
     public function posts()
     {
-        return $this->belongsToMany(CPosts::class, "blog_post_categories",
-            "blog_category_id", "blog_post_id");
+        return $this->morphedByMany(CPosts::class, "blog_categoryables");
     }
 
     /**

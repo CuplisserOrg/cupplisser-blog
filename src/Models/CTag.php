@@ -10,12 +10,14 @@ class CTag extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'site_id',
         'name'
     ];
-    public function __construct()
+    protected $guard = [];
+
+    public function __construct(array $attributes = [])
     {
         $this->table = config('cblog.table.tags');
+        parent::__construct($attributes);
     }
 
     /**
@@ -25,8 +27,7 @@ class CTag extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany(CPosts::class, "blog_post_tags",
-            "blog_tag_id", "blog_post_id");
+        return $this->morphedByMany(CPosts::class, "blog_taggables");
     }
 
     /**

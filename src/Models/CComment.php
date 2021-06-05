@@ -47,7 +47,12 @@ class CComment extends Model
 
     public function __construct()
     {
-        $this->table = config('cblog.table.comments'); 
+        $this->table = config('cblog.table.comments');
+    }
+
+    public function commentable()
+    {
+        return $this->morphTo();
     }
 
     public function post()

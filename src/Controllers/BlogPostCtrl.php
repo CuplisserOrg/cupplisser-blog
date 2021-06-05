@@ -14,7 +14,7 @@ class BlogPostCtrl extends Controller{
           ->with(['posts'=>$posts]);
     }
     public function create(){
-        return view($this->viewPath."posts.create");
+        return view($this->viewPath."posts.form");
     }
     public function store(BlogPostRequest $request)
     {
@@ -22,16 +22,14 @@ class BlogPostCtrl extends Controller{
             ? date("Y-m-d H:i:s", strtotime($request->published_at))
             : date("Y-m-d H:i:s", time() - 60);
         $slug = Str::slug($request->title);
-        $post = CPosts::insert([
+        $post = CPosts::create([
             'author_id' => auth()->user()->id ?? null,
-            'blog_image_id' => $request->blog_image_id,
             'title' => $request->title,
             'slug' =>  $slug,
-            'fb_slug' =>  $slug,
             'content' => $request->post('content'),
             'status' => $request->status,
             'format' => CPosts::FORMAT_STANDARD,
-            'is_approved' => 1,
+            'is_approved' => 0,
             'comments_enabled' => boolval($request->comments_enabled),
             'published_at' => $published_at,
             'is_featured' => boolval($request->post("is_featured", 0))

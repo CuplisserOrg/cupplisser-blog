@@ -21,5 +21,8 @@ return [
     'posts' =>[
         'per_page' => 10,
     ],
+    'users'=>[
+        "table" => "users",
+    ],
     'views_path'=> 'admin-blog::'
 ];

@@ -31,6 +31,8 @@ class CupplisserBlogServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/Views', 'main-blog');
         $this->loadViewsFrom(__DIR__ . "/Views/admin", "admin-blog");
 
+        $this->loadMigrationsFrom(__DIR__. "/../database/migrations");
+
         // Publish config files
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('cblog.php'),
@@ -43,7 +45,7 @@ class CupplisserBlogServiceProvider extends ServiceProvider
 
         // Publish Static Files
         $this->publishes([
-            __DIR__.'/../public' => public_path('assets/libs/blog'),
+            __DIR__.'/../public' => public_path('libs/blogs'),
         ], 'cblog-public');
     }
 }

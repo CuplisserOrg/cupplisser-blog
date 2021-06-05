@@ -1,7 +1,13 @@
-@extends(config('cblog.resource_path').'main')
+@extends('admin-blog::main')
 
+
+@section("header")
+<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+    {{ __('Page') }}
+</h2>
+@endsection
 @section('content-admin')
-    <div class="row">
+    <div class="py-10">
         <div class="col-md-12">
             <form method="post" action="{{ route('cblog::posts.store') }}">
                 @csrf
@@ -13,13 +19,13 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select name="category" id="category" class="form-control">
+                            <select name="category" id="categories" class="form-control">
 
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="tag">Tag</label>
-                            <select name="tag" id="tag" class="form-control">
+                            <select name="tags" id="tags" class="form-control" multiple>
 
                             </select>
                         </div>
@@ -38,7 +44,6 @@
 
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <input type="text" name="status" id="status" class="form-control" />
                             <select name="status" class="form-control">
                               <option value="D">Draft</option>
                               <option value="A">Aktif</option>
@@ -63,11 +68,11 @@
 
 @section('script-end')
     @parent
-    <script src="{{ asset('assets/libs/ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('assets/libs/blog/js/blog.js') }}"></script>
+    <script src="{{ config('cblog.ckeditor.path') }}"></script>
     <script>
-        $(function (){
-            CKEDITOR.replace('content')
-        });
+            Blog.init_ckeditor();
+            Blog.loadCategories();
+            Blog.loadTags();
+            CKEDITOR.replace('content');
     </script>
 @endsection

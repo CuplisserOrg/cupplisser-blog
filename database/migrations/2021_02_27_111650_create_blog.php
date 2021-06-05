@@ -17,11 +17,11 @@ class CreateBlog extends Migration
         $this->create_blog();
         $this->create_categories();
         $this->create_tag();
-        // $this->create_comment();
         $this->create_image();
         $this->create_comments();
         $this->create_likes();
         $this->create_newletter();
+        $this->create_pages();
     }
 
     /**
@@ -31,15 +31,16 @@ class CreateBlog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("newsletter_subscriptions");
+        Schema::dropIfExists('blog_pages');
+        Schema::dropIfExists("blog_newsletter_subscriptions");
         Schema::dropIfExists("blog_likes");
         Schema::dropIfExists("blog_comments");
         Schema::dropIfExists("blog_post_images");
         Schema::dropIfExists("blog_post_comments");
         Schema::dropIfExists("blog_post_destinations");
-        Schema::dropIfExists("blog_post_tags");
+        Schema::dropIfExists("blog_taggables");
         Schema::dropIfExists("blog_tags");;
-        Schema::dropIfExists("blog_post_categories");
+        Schema::dropIfExists("blog_categoryable");
         Schema::dropIfExists("blog_categories");
         Schema::dropIfExists("blog_posts");
     }
@@ -47,11 +48,11 @@ class CreateBlog extends Migration
     private function create_blog()
     {
         Schema::create('blog_posts', function (Blueprint $table) {
+            $users = config('cblog.users.table');
             $table->increments('id');
             $table->unsignedInteger("author_id")->nullable();
             $table->string("title");
             $table->string("slug")->nullable();
-            $table->string("fb_slug");
             $table->longText("content");
             $table->unsignedInteger("blog_image_id")->nullable();
             $table->char("status", 1)->default("D");
@@ -64,14 +65,14 @@ class CreateBlog extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            if (Schema::hasTable("users")) {
+            if (Schema::hasTable($users)) {
                 $table->foreign("author_id")
                     ->references("id")
-                    ->on("users");
+                    ->on($users);
 
                 $table->foreign("approved_by")
                     ->references("id")
-                    ->on("users");
+                    ->on($users);
             }
 
         });
@@ -87,25 +88,9 @@ class CreateBlog extends Migration
             $table->softDeletes();
         });
 
-        Schema::create("blog_post_categories", function (Blueprint $table) {
-            $table->increments("id");
-            $table->morphs('categories');
-            $table->unsignedInteger("blog_post_id");
-            $table->unsignedInteger("blog_category_id");
-
-            $table->unique(['blog_post_id', 'blog_category_id']);
-
-            $table->foreign("blog_post_id")
-                ->references("id")
-                ->on("blog_posts")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
-
-            $table->foreign("blog_category_id")
-                ->references("id")
-                ->on("blog_categories")
-                ->onUpdate("cascade")
-                ->onDelete("cascade");
+        Schema::create("blog_categoryable", function (Blueprint $table) {
+            $table->unsignedBigInteger("category_id");
+            $table->morphs('categoryable');
         });
     }
 
@@ -113,14 +98,12 @@ class CreateBlog extends Migration
     {
         Schema::create("blog_tags", function (Blueprint $table) {
             $table->increments("id");
-            $table->unsignedInteger("site_id")->nullable();
             $table->string("name");
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create("blog_taggables", function (Blueprint $table) {
-            $table->increments("id");
             $table->unsignedInteger("blog_tag_id");
             $table->morphs('taggables');
 
@@ -133,34 +116,7 @@ class CreateBlog extends Migration
         });
     }
 
-    public function create_comment()
-    {
-        Schema::create("blog_post_comments", function (Blueprint $table) {
-            $table->increments("id");
-            $table->unsignedInteger("blog_post_id");
-            $table->unsignedInteger("author_id");
-            $table->unsignedInteger("parent_id")->nullable();
-            $table->integer("depth")->default(1);
-            $table->char("status", 1)->default("P");
-            $table->text("content");
-            $table->timestamps();
-            $table->softDeletes();
 
-            $table->foreign("blog_post_id")
-                ->references("id")
-                ->on("blog_posts");
-
-            if (Schema::hasTable("users")) {
-                $table->foreign("author_id")
-                    ->references("id")
-                    ->on("users");
-            }
-
-            $table->foreign("parent_id")
-                ->references("id")
-                ->on("blog_post_comments");
-        });
-    }
 
     public function create_image()
     {
@@ -170,6 +126,7 @@ class CreateBlog extends Migration
             $table->string("path");
             $table->string("caption")->nullable();
             $table->string("alt_text")->nullable();
+            $table->morphs("imageable");
             $table->timestamps();
             $table->softDeletes();
         });
@@ -177,8 +134,10 @@ class CreateBlog extends Migration
 
     public function create_comments(){
         Schema::create('blog_comments', function (Blueprint $table) {
+
+            $users = config('cblog.users.table');
             $table->increments('id');
-            $table->unsignedInteger("post_id");
+
             $table->unsignedInteger("parent_id")->nullable();
             $table->unsignedInteger("user_id")->nullable();
             $table->string("name")->nullable();
@@ -187,24 +146,20 @@ class CreateBlog extends Migration
             $table->char("status", 1);
             $table->unsignedInteger("moderated_by")->nullable();
             $table->datetime("moderated_at")->nullable();
+            $table->morphs("commentable");
             $table->timestamps();
             $table->timestamp("deleted_at")->nullable();
 
-            $table->foreign("post_id")
-                ->references("id")
-                ->on("blog_posts")
-                ->onUpdate("cascade")
-                ->onDelete("no action");
 
             $table->foreign("user_id")
                 ->references("id")
-                ->on("users")
+                ->on($users)
                 ->onUpdate("cascade")
                 ->onDelete("no action");
 
             $table->foreign("moderated_by")
                 ->references("id")
-                ->on("users")
+                ->on($users)
                 ->onUpdate("cascade")
                 ->onDelete("no action");
 
@@ -215,9 +170,10 @@ class CreateBlog extends Migration
 
     public function create_likes(){
        Schema::create('blog_likes', function (Blueprint $table) {
+            $users = config('cblog.users.table');
             $table->increments('id');
             $table->integer('author_id')->unsigned();
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on($users);
 
             $table->nullableMorphs('likeable');
 

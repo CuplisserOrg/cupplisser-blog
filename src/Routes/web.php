@@ -1,9 +1,16 @@
 <?php
 use Illuminate\Support\Facades\Route;
-Route::group(['prefix'=> 'admin/blog', 'middleware' => 'web', 'as'=>'cblog::'], function() {
-    Route::get("/", "Cupplisser\Blog\Controllers\BlogPostCtrl@index")->name('posts.index');
-    Route::resource('posts', "Cupplisser\Blog\Controllers\BlogPostCtrl", ['except' => ['show']]);
-    Route::resource('tags', "Cupplisser\Blog\Controllers\BlogTagCtrl",['except' => ['create', 'show']]);
-    Route::resource('categories', "Cupplisser\Blog\Controllers\BlogCategoryCtrl",['except' => ['show']]);
-    Route::resource('comments', "Cupplisser\Blog\Controllers\BlogCommentCtrl");
+Route::group(['prefix'=> 'admin/blog', 'middleware' => 'web', 'as'=>'cblog::', 'namespace'=> 'Cupplisser\Blog\Controllers'], function() {
+    Route::get("/", "BlogPostCtrl@index")->name('posts.index');
+    Route::resource('posts', "BlogPostCtrl", ['except' => ['show']]);
+    Route::resource('pages', "BlogPageCtrl", ['except' => ['show']]);
+    Route::resource('tags', "BlogTagCtrl",['except' => ['create', 'show']]);
+    Route::resource('categories', "BlogCategoryCtrl",['except' => ['show']]);
+    Route::resource('comments', "BlogCommentCtrl");
+
+});
+
+Route::prefix('blog')->namespace("Cupplisser\Blog\Controllers")->group(function ($route) {
+    $route->get("get_tags", "BlogCtrl@loadTags");
+    $route->get("get_categories", "BlogCtrl@loadCategories");
 });

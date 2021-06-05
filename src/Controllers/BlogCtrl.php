@@ -2,8 +2,10 @@
 
 namespace Cupplisser\Blog\Controllers;
 
+use Cupplisser\Blog\Models\CCategory;
 use Cupplisser\Blog\Models\CComment;
 use Cupplisser\Blog\Models\CPosts;
+use Cupplisser\Blog\Models\CTag;
 use Illuminate\Http\Request;
 
 class BlogCtrl extends Controller{
@@ -36,5 +38,15 @@ class BlogCtrl extends Controller{
         ]);
 
         return redirect(blogUrl("$post->id/$post->slug" . "#post-comments", true));
+    }
+
+
+    public function loadCategories(Request $request)
+    {
+        return CCategory::get();
+    }
+    public function loadTags(Request $request)
+    {
+        return CTag::get();
     }
 }
