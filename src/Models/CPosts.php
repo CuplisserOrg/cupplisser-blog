@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\User;
 class CPosts extends Model{
     use SoftDeletes;
 
@@ -130,9 +130,21 @@ class CPosts extends Model{
         return blogUrl("blog/author/{$this->author->id}-" . strtolower(str_replace(" ", "-", $this->author->name)));
     }
 
+    public function getStatusNameAttributte()
+    {
+        return $this->status;
+    }
+
+    public function getCategoryPostAttribute(){
+      return implode(" ", $this->categories->pluck("name")->toArray());
+    }
+    public function getTagPostAttribute(){
+      return implode(" ,", $this->tags->pluck("name")->toArray());
+    }
+
     public function getCommentsCountAttribute()
     {
-        return count($this->allComments);
+        return count($this->comments);
     }
 
     public function isWithinDays($days = 7)

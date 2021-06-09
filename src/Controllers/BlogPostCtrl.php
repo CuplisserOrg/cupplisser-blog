@@ -9,12 +9,15 @@ use Illuminate\Http\Request;
 class BlogPostCtrl extends Controller{
     public function index()
     {
-        $posts = CPosts::get();
+        $posts = CPosts::paginate();
         return view($this->viewPath."posts.index")
           ->with(['posts'=>$posts]);
     }
     public function create(){
         return view($this->viewPath."posts.form");
+    }
+    public function edit(CPosts $post){
+      return view($this->viewPath."posts.form")->with("post",$post);
     }
     public function store(BlogPostRequest $request)
     {
