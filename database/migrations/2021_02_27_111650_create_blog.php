@@ -50,7 +50,7 @@ class CreateBlog extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $users = config('cblog.users.table');
             $table->increments('id');
-            $table->unsignedInteger("author_id")->nullable();
+            $table->unsignedBigInteger("author_id")->nullable();
             $table->string("title");
             $table->string("slug")->nullable();
             $table->longText("content");
@@ -59,7 +59,7 @@ class CreateBlog extends Migration
             $table->char("format", 1)->default("S");
             $table->boolean("is_featured")->default(0);
             $table->boolean("is_approved");
-            $table->unsignedInteger("approved_by")->nullable();
+            $table->unsignedBigInteger("approved_by")->nullable();
             $table->boolean("comments_enabled")->nullable();
             $table->timestamp("published_at")->default(DB::raw("CURRENT_TIMESTAMP"));
             $table->timestamps();
@@ -139,12 +139,12 @@ class CreateBlog extends Migration
             $table->increments('id');
 
             $table->unsignedInteger("parent_id")->nullable();
-            $table->unsignedInteger("user_id")->nullable();
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->string("name")->nullable();
             $table->string("email")->nullable();
             $table->text("body");
             $table->char("status", 1);
-            $table->unsignedInteger("moderated_by")->nullable();
+            $table->unsignedBigInteger("moderated_by")->nullable();
             $table->datetime("moderated_at")->nullable();
             $table->morphs("commentable");
             $table->timestamps();
@@ -172,7 +172,7 @@ class CreateBlog extends Migration
        Schema::create('blog_likes', function (Blueprint $table) {
             $users = config('cblog.users.table');
             $table->increments('id');
-            $table->integer('author_id')->unsigned();
+            $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on($users);
 
             $table->nullableMorphs('likeable');
