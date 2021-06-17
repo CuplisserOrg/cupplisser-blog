@@ -1,4 +1,4 @@
-@extends("layouts.app")
+@extends("admin-blog::main")
 
 @section('content')
     <form class="theme-form" action="{{ $action }}" method="post">

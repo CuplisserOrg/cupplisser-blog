@@ -1,9 +1,10 @@
 <?php namespace Cupplisser\Blog\Models;
 
-use App\Traits\UsesUuid;
+use Cupplisser\Blog\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
 
 class CPage extends Model{
     // use SoftDeletes;
@@ -132,14 +133,5 @@ class CPage extends Model{
         return $postDate > $date;
     }
 
-    public function isDraft()
-    {
-        return $this->status == self::STATUS_DRAFT;
-    }
-
-    public function isActive()
-    {
-        return $this->status == self::STATUS_ACTIVE;
-    }
 }
 

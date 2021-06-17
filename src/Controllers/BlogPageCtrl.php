@@ -18,6 +18,7 @@ class BlogPageCtrl extends Controller{
             ->with("action", route("cblog::pages.store"));
     }
     public function edit($page){
+
         $page = CPage::find($page);
         return view($this->viewPath."pages.form")
         ->with("page",$page)

@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-Route::group(['prefix'=> 'admin/blog', 'middleware' => 'web', 'as'=>'cblog::', 'namespace'=> 'Cupplisser\Blog\Controllers'], function() {
+Route::group(['prefix'=> 'admin/blog', 'middleware' => ['web', 'auth'], 'as'=>'cblog::', 'namespace'=> 'Cupplisser\Blog\Controllers'], function() {
     Route::get("/", "BlogPostCtrl@index")->name('posts.index');
     Route::resource('posts', "BlogPostCtrl", ['except' => ['show']]);
     Route::resource('pages', "BlogPageCtrl", ['except' => ['show']]);
