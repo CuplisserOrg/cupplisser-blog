@@ -1,6 +1,6 @@
 @extends("admin-blog::main")
 
-@section('content')
+@section('content-admin')
     <form class="theme-form" action="{{ $action }}" method="post">
         @csrf
         @isset($page)

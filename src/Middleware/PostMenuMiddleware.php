@@ -52,6 +52,19 @@ class PostMenuMiddleware{
             ->link->attr([
                 'class' => "c-sidebar-nav-link",
             ]);
+
+            $articles_menu->add('<i class="c-sidebar-nav-icon fas fa-sitemap"></i> Page', [
+                'route' => 'cblog::pages.index',
+                'class' => 'c-sidebar-nav-item',
+            ])
+            ->data([
+                'order'         => 83,
+                'activematches' => 'admin/pages*',
+                // 'permission'    => ['edit_categories'],
+            ])
+            ->link->attr([
+                'class' => "c-sidebar-nav-link",
+            ]);
         })->sortBy('order');
 
         return $next($request);

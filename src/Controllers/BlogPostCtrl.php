@@ -14,10 +14,16 @@ class BlogPostCtrl extends Controller{
           ->with(['posts'=>$posts]);
     }
     public function create(){
-        return view($this->viewPath."posts.form");
+        return view($this->viewPath."posts.form")
+        ->with("action","create")
+        ->with("action_url", route("cblog::posts.store"))
+        ;
     }
     public function edit(CPosts $post){
-      return view($this->viewPath."posts.form")->with("post",$post);
+      return view($this->viewPath."posts.form")
+        ->with("action","edit")
+      ->with("action_url", route("cblog::posts.update",[$post->id]))
+      ->with("post",$post);
     }
     public function store(BlogPostRequest $request)
     {
@@ -51,14 +57,15 @@ class BlogPostCtrl extends Controller{
             ->with("success", "Blog post created successfully");
     }
     public function update(BlogPostRequest $request, CPosts $post): RedirectResponse{
-        $post->update($request->only(['title', 'content', 'posted_at', 'author_id', 'thumbnail_id']));
+        $result = $post->update($request->only(['title', 'content', 'posted_at', 'author_id', 'status']));
+        // dd($result);
 
-        return redirect()->route('admin.posts.edit', $post)->withSuccess(__('posts.updated'));
+        return redirect()->route('cblog::posts.edit', $post)->withSuccess(__('posts.updated'));
     }
     public function destroy(CPosts $post)
     {
         $post->delete();
 
-        return redirect()->route('admin.posts.index')->withSuccess(__('posts.deleted'));
+        return redirect()->route('cblog::posts.index')->withSuccess(__('posts.deleted'));
     }
 }

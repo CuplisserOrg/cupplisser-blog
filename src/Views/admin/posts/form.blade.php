@@ -9,8 +9,11 @@
 @section('content-admin')
     <div class="py-10">
         <div class="col-md-12">
-            <form method="post" action="{{ route('cblog::posts.store') }}">
+            <form method="post" action="{{ $action_url }}">
                 @csrf
+                @if ($action =="edit")
+                    @method("PUT")
+                @endif
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
@@ -45,8 +48,8 @@
                         <div class="form-group">
                             <label for="status">Status</label>
                             <select name="status" class="form-control" data-value="{{ isset($post) ? $post->status:null }}">>
-                              <option value="D">Draft</option>
-                              <option value="A">Aktif</option>
+                              <option @if ($post->status == "D") selected @endif value="D">Draft</option>
+                              <option @if ($post->status == "A") selected @endif value="A">Aktif</option>
 
                             </select>
                         </div>
