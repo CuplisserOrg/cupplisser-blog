@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
+use App\Models\User;
 class CPosts extends Model{
     use SoftDeletes;
 
@@ -31,7 +31,7 @@ class CPosts extends Model{
 
     public function categories()
     {
-        return $this->morphToMany(CCategory::class, "blog_categoryables", "blog_categoryables", "blog_categoryables_id", "category_id");
+        return $this->morphToMany(CCategory::class, "blog_categoryable", "blog_categoryable", "blog_categoryable_id", "category_id");
     }
 
     public function tags()

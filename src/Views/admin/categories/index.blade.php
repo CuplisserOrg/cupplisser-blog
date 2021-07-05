@@ -9,17 +9,23 @@
                     <thead>
                         <tr class="bg-dark text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Name</th>
+                            <th class="py-3 px-6 text-left">Description</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
-                        @foreach ($tags as $item)
+                        @foreach ($categories as $item)
 
                         <tr class="border-b border-gray-200 hover:bg-gray-100">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
 
                                     <span class="font-medium">{{ $item->name }}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <div class="flex items-center">
+                                    <span>{{ $item->description }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">

@@ -24,5 +24,14 @@ return [
     'users'=>[
         "table" => "users",
     ],
-    'views_path'=> 'admin-blog::'
+    'views_path'=> 'admin-blog::',
+    "assets" => array(
+        "js"=> array(
+            asset("js/app.js"),
+            asset("js/jquery.min.js"),
+            asset("libs/sweetalert2/sweetalert2.all.min.js"),
+            asset("js/dashboard.js")
+
+        )
+    )
 ];

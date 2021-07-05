@@ -7,7 +7,7 @@
             <div class="bg-white shadow-md rounded my-6">
                 <table class="min-w-max w-full table-auto">
                     <thead>
-                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <tr class="bg-dark text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Judul</th>
                             <th class="py-3 px-6 text-left">Author</th>
                             <th class="py-3 px-6 text-center">Status</th>
@@ -27,9 +27,9 @@
                             <td class="py-3 px-6 text-left">
                                 <div class="flex items-center">
                                     <div class="mr-2">
-                                        <img class="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg"/>
+                                        <img class="w-6 h-6 rounded-full" src="{{ $item->author->avatar_url }}"/>
                                     </div>
-                                    <span>{{ $item->author }}</span>
+                                    <span>{{ $item->author->name }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">

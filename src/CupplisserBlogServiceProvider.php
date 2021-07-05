@@ -47,5 +47,8 @@ class CupplisserBlogServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../public' => public_path('libs/blogs'),
         ], 'cblog-public');
+
+        $kernel = $this->app->make('Illuminate\Contracts\Http\Kernel');
+        $kernel->pushMiddleware('Cupplisser\Blog\Middleware\PostMenuMiddleware');
     }
 }

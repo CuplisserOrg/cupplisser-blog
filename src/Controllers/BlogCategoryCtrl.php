@@ -1,12 +1,11 @@
 <?php namespace Cupplisser\Blog\Controllers;
 use Cupplisser\Blog\Models\CCategory;
 use Cupplisser\Blog\Requests\BlogCategoryRequest;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 
 class BlogCategoryCtrl extends Controller{
     public function index()
     {
-        # code...
         if(auth()->user()->cannot("view", CCategory::class)) {
             abort(403);
         }
@@ -24,10 +23,10 @@ class BlogCategoryCtrl extends Controller{
             abort(403);
         }
 
-        return view($this->viewPath."categories.create");
+        return view($this->viewPath."categories.form");
     }
 
-    public function store(BlogCategoryRequest $request)
+    public function store(Request $request)
     {
         if(auth()->user()->cannot("create", CCategory::class)) {
             abort(403);
@@ -42,7 +41,6 @@ class BlogCategoryCtrl extends Controller{
             $trashed->restore();
         }else{
             CCategory::create([
-                'site_id'       => getBlogSiteID(),
                 'name'          => $request->name,
                 'description'   => $request->description
             ]);
@@ -68,7 +66,6 @@ class BlogCategoryCtrl extends Controller{
             abort(403);
         }
 
-        $siteId = getBlogSiteID();
 
         $category->update($request->only(['name', 'description']));
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CCategory extends Model
 {
-    // use SoftDeletes;
+    use SoftDeletes;
     protected $table = 'blog_categories';
     protected $fillable = [
         'name',
