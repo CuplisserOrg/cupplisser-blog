@@ -38,11 +38,11 @@ class CComment extends Model
         'moderated_at',
     ];
 
-    protected $dates = [
-        'moderated_at',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+    protected $casts = [
+        'moderated_at' => "datetime",
+        'created_at' => "datetime",
+        'updated_at' => "datetime",
+        'deleted_at' => "datetime",
     ];
 
     public function __construct()
